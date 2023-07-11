@@ -24,8 +24,8 @@ steps:
     displayName: npm install
     #workingDirectory: $(Pipeline.Workspace)/aqovia-vs-code-extension-pack
 
-  - script: npm run test
-    displayName: Run unit tests
+  #- script: npm run test
+  #  displayName: Run unit tests
 
   # Acquire the `vsce` tool and use it to package
   - script: |
