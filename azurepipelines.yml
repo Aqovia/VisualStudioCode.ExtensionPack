@@ -18,6 +18,8 @@ steps:
       npm --no-git-tag-version version $VERSION_STRING
       echo "##vso[build.updatebuildnumber]${VERSION_STRING}_${BUILD_BUILDID}"
       echo "$PACKAGE_VERSION" > version.txt
+      echo "$VERSION_STRING"
+      echo "$BUILD_BUILDID"
     displayName: Set version number of package and build
 
   - script: npm install
