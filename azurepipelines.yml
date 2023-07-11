@@ -12,7 +12,8 @@ steps:
       if [ -n "$SYSTEM_PULLREQUEST_PULLREQUESTNUMBER" ]; then
         VERSION_STRING=${PACKAGE_VERSION}-pr-${SYSTEM_PULLREQUEST_PULLREQUESTNUMBER}-$(git rev-parse --short HEAD)
       else
-        VERSION_STRING=${PACKAGE_VERSION}-ci-$(git rev-parse --short HEAD)
+        #VERSION_STRING=${PACKAGE_VERSION}-ci-$(git rev-parse --short HEAD)
+        VERSION_STRING=${PACKAGE_VERSION}
       fi
 
       npm --no-git-tag-version version $VERSION_STRING
@@ -62,7 +63,7 @@ steps:
       $VERSION_STRING=$(cat version-string.txt)
       $BUILD_ID=$(cat build-id.txt)
 
-      vsce publish -p $(MarketplacePAT) --packagePath aqovia-vscode-extension-pack-$VERSION_STRING.vsix
+      vsce publish -p $(MarketplacePAT) --packagePath aqovia-vscode-extension-pack-$PACKAGE_VERSION.vsix
     workingDirectory: $(Pipeline.Workspace)/package
     displayName: Publish To Marketplace
 
