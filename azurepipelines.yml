@@ -62,7 +62,7 @@ steps:
       $VERSION_STRING=$(cat version-string.txt)
       $BUILD_ID=$(cat build-id.txt)
 
-      vsce publish -p $(MarketplacePAT) --packagePath AqoviaVSCodeExtensionPack-$PACKAGE_VERSION-$VERSION_STRING.vsix
+      vsce publish -p $(MarketplacePAT) --packagePath aqovia-vscode-extension-pack-$VERSION_STRING.vsix
     workingDirectory: $(Pipeline.Workspace)/package
     displayName: Publish To Marketplace
 
