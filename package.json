@@ -3,7 +3,7 @@
   "displayName": "aqovia-vscode-extension-pack",
   "description": "Aqovia Visual Studio Code Extension Pack",
   "version": "0.0.1",
-  "publisher": "hydigrealty",
+  "publisher": "Aqovia",
   "engines": {
     "vscode": "^1.80.0"
   },
