@@ -2,7 +2,7 @@
 
 Aqovia VisualStudioCode ExtensionPack is an extension pack which contains extensions we use for VSCode at Aqovia.
 
-Current package list -
+Current extensions list -
     hnw.vscode-auto-open-markdown-preview
     redhat.vscode-yaml
     Zignd.html-css-class-completion
