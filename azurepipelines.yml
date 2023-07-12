@@ -23,10 +23,10 @@ steps:
       echo "$BUILD_BUILDID" > build-id.txt
     displayName: Set version number of package and build
 
-  - pwsh: |
-      $extList = (Get-Content 'package.json' | ConvertFrom-Json).parameters.extensionPack.value
-      echo "extList: $extList"
-    displayName: Extract Extension List
+  #- pwsh: |
+  #    $extList = (Get-Content "$(Pipeline.Workspace)/package.json" | ConvertFrom-Json).parameters.extensionPack.value
+  #    echo "extList: $extList"
+  #  displayName: Extract Extension List
   
   #- bash: |
   #    echo "##vso[task.setvariable variable=EXTENSIONSLIST;]$(jq .extensionPack package.json)"  
