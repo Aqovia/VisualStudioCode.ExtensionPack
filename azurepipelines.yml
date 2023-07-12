@@ -57,7 +57,7 @@ steps:
       targetFolder: $(Pipeline.Workspace)/package
 
   - pwsh: |
-      npm install -g vsce
+      npm install -g @vscode/vsce
 
       $PACKAGE_VERSION=$(cat version.txt)
       $VERSION_STRING=$(cat version-string.txt)
