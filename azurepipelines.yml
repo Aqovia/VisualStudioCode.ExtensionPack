@@ -23,6 +23,14 @@ steps:
       echo "$BUILD_BUILDID" > build-id.txt
     displayName: Set version number of package and build
 
+  - bash: |
+      echo "##vso[task.setvariable variable=EXTENSIONSLIST;]$(jq .extensionPack package.json)"  
+    displayName: setExtensionsList
+
+  - script: |
+      echo $(EXTENSIONSLIST) 
+    displayName: output value of ExtensionsList
+
   - script: npm install
     displayName: npm install
     #workingDirectory: $(Pipeline.Workspace)/aqovia-vs-code-extension-pack
