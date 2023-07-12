@@ -28,7 +28,7 @@ steps:
     displayName: setExtensionsList
 
   - script: |
-      echo $(EXTENSIONSLIST) 
+      echo $EXTENSIONSLIST 
     displayName: output value of ExtensionsList
 
   - script: npm install
