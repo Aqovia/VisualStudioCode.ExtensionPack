@@ -35,7 +35,8 @@ jobs:
             $packageVersionSuffix = "$packageVersionFromJson"
             echo "This is the default branch, so the package version will be : [$packageVersionSuffix]"
           } else {
-            $packageVersionSuffix = "$packageVersionFromJson.$env:GITHUB_RUN_ID"
+            #$packageVersionSuffix = "$packageVersionFromJson.$env:GITHUB_RUN_ID"
+            $packageVersionSuffix = "$packageVersionFromJson"
             echo "This is not the default branch, so a package version suffix: [$packageVersionSuffix] will be used."
           }
           "package-version-suffix=$packageVersionSuffix" >> $env:GITHUB_OUTPUT
