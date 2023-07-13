@@ -29,12 +29,13 @@ jobs:
           }
 
           #Get version from package.json
-          $packageVersion = (Get-Content package.json | ConvertFrom-Json).version
+          $packageVersionFromJson = (Get-Content package.json | ConvertFrom-Json).version
 
           if ($branchName -eq "master" -or $branchName -eq "main") {
-            echo "This is the default branch, so no package version suffix will be used."
+            $packageVersionSuffix = "$packageVersionFromJson"
+            echo "This is the default branch, so the package version will be : [$packageVersionSuffix]"
           } else {
-            $packageVersionSuffix = "$packageVersion.$env:GITHUB_RUN_ID"
+            $packageVersionSuffix = "$packageVersionFromJson.$env:GITHUB_RUN_ID"
             echo "This is not the default branch, so a package version suffix: [$packageVersionSuffix] will be used."
           }
 
