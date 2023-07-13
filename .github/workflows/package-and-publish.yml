@@ -62,6 +62,6 @@ jobs:
           pwd
           ls
           echo "packageVersionSuffix: ${{steps.get-suffix.outputs.package-version-suffix}}"
-          vsce publish -p ${{secrets.MARKETPLACE_PAT}} --packagePath package/aqovia-vscode-extension-pack-${{steps.get-suffix.outputs.package-version-suffix}}.vsix
+          vsce publish -p ${{secrets.MARKETPLACE_PAT}} --packagePath aqovia-vscode-extension-pack-${{steps.get-suffix.outputs.package-version-suffix}}.vsix
 
 
