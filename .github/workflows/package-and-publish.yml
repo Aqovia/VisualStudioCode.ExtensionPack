@@ -43,9 +43,10 @@ jobs:
       - id: "package-vsix"
         name : "Package VSIX"
         run: |
-          $packageVersionSuffix = "cheese"
           $packageVersionSuffix = ${{steps.get-suffix.outputs.package-version-suffix}}
-          echo "packageVersionSuffix=[$packageVersionSuffix]"
+          echo "packageVersionSuffix: $packageVersionSuffix"
+          echo "packageVersionSuffix: ${{steps.get-suffix.outputs.package-version-suffix}}"
+          echo "packageVersionSuffix: [${{steps.get-suffix.outputs.package-version-suffix}}]"
           vsce package
 
 
