@@ -41,6 +41,7 @@ jobs:
           }
           "package-version-suffix=$packageVersionSuffix" >> $env:GITHUB_OUTPUT
       - run: env
+
       - id: "package-vsix"
         name : "Package VSIX"
         run: |
@@ -48,12 +49,18 @@ jobs:
           ls
           echo "packageVersionSuffix: ${{steps.get-suffix.outputs.package-version-suffix}}"
           vsce package
+      - name: Copy VSIX
+        uses: actions/copy-file@v2
+        with:
+          source: aqovia-vscode-extension-pack-${{steps.get-suffix.outputs.package-version-suffix}}.vsix
+          target: package/aqovia-vscode-extension-pack-${{steps.get-suffix.outputs.package-version-suffix}}.vsix
+
       - id: "publish-vsix"
         name : "Publish VSIX"
         run: |
           pwd
           ls
           echo "packageVersionSuffix: ${{steps.get-suffix.outputs.package-version-suffix}}"
-          vsce publish -p ${{secrets.MARKETPLACE_PAT}} --packagePath aqovia-vscode-extension-pack-${{steps.get-suffix.outputs.package-version-suffix}}.vsix
+          vsce publish -p ${{secrets.MARKETPLACE_PAT}} --packagePath package/aqovia-vscode-extension-pack-${{steps.get-suffix.outputs.package-version-suffix}}.vsix
 
 
