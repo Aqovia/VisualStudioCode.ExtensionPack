@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '16'
       - run: npm install -g @vscode/vsce
         shell: bash
       - run: vsce -V
@@ -40,7 +40,7 @@ jobs:
             echo "This is not the default branch, so a package version suffix: [$packageVersionSuffix] will be used."
           }
           "package-version-suffix=$packageVersionSuffix" >> $env:GITHUB_OUTPUT
-      - run: env
+#      - run: env
 
       - id: "package-vsix"
         name : "Package VSIX"
@@ -48,6 +48,7 @@ jobs:
         run: |
           pwd
           ls
+          npm --no-git-tag-version version ${{steps.get-suffix.outputs.package-version-suffix}}
           echo "packageVersionSuffix: ${{steps.get-suffix.outputs.package-version-suffix}}"
           vsce ls
           mkdir -p build && vsce package --out build/
