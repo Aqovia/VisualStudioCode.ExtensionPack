@@ -44,21 +44,24 @@ jobs:
 
       - id: "package-vsix"
         name : "Package VSIX"
+        shell: bash
         run: |
           pwd
           ls
           echo "packageVersionSuffix: ${{steps.get-suffix.outputs.package-version-suffix}}"
-          vsce package
-      - name: Copy VSIX to package folder
-        shell: bash
-        run: |
-          mkdir package
-          cp *.vsix package
+          vsce ls
+          mkdir -p build && vsce package --out build/
+#      - name: Copy VSIX to package folder
+#        shell: bash
+#        run: |
+#          mkdir package
+#          cp *.vsix package
 
       - id: "publish-vsix"
         name : "Publish VSIX"
+        shell: bash
         run: |
-          cd package
+          cd build
           pwd
           ls
           echo "packageVersionSuffix: ${{steps.get-suffix.outputs.package-version-suffix}}"
