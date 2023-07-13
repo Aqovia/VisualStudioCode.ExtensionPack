@@ -50,10 +50,10 @@ jobs:
           echo "packageVersionSuffix: ${{steps.get-suffix.outputs.package-version-suffix}}"
           vsce package
       - name: Copy VSIX
-        uses: actions/copy-file@v2
+        uses: canastro/copy-file-action@master
         with:
-          source: aqovia-vscode-extension-pack-${{steps.get-suffix.outputs.package-version-suffix}}.vsix
-          target: package/aqovia-vscode-extension-pack-${{steps.get-suffix.outputs.package-version-suffix}}.vsix
+          source: "aqovia-vscode-extension-pack-${{steps.get-suffix.outputs.package-version-suffix}}.vsix"
+          target: "package/aqovia-vscode-extension-pack-${{steps.get-suffix.outputs.package-version-suffix}}.vsix"
 
       - id: "publish-vsix"
         name : "Publish VSIX"
