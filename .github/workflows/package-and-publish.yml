@@ -39,14 +39,13 @@ jobs:
             echo "This is not the default branch, so a package version suffix: [$packageVersionSuffix] will be used."
           }
 
-          echo "package-version-suffix=$packageVersionSuffix" >> $env:GITHUB_OUTPUT
+          echo "packageVersionSuffix=$packageVersionSuffix" >> $env:GITHUB_OUTPUT
       - run: env
       - id: "package-vsix"
         name : "Package VSIX"
         run: |
-          $packageVersionSuffix = (Get-Content $env:GITHUB_OUTPUT | ConvertFrom-StringData)."package-version-suffix"
+          $packageVersionSuffix = (Get-Content $env:GITHUB_OUTPUT | ConvertFrom-StringData)."packageVersionSuffix"
           echo "packageVersionSuffix=$packageVersionSuffix"
-
-          vsce package --yarn --packagePath aqovia-vscode-extension-pack-$packageVersionSuffix.vsix
+          vsce package
 
 
