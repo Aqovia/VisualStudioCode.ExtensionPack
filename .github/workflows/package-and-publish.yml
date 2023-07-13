@@ -58,6 +58,7 @@ jobs:
       - id: "publish-vsix"
         name : "Publish VSIX"
         run: |
+          cd package
           pwd
           ls
           echo "packageVersionSuffix: ${{steps.get-suffix.outputs.package-version-suffix}}"
