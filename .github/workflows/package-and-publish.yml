@@ -2,9 +2,9 @@ name: Package and Publish
 run-name : ${{ github.actor }} is running Package and Publish
 on: [push, pull_request]
 
-#defaults:
-#  run:
-#    shell: pwsh
+defaults:
+  run:
+    shell: pwsh
 
 jobs:
   check-vsce-version:
@@ -15,5 +15,6 @@ jobs:
         with:
           node-version: '14'
       - run: npm install -g @vscode/vsce
+        shell: bash
       - run: vsce -V
 
