@@ -38,13 +38,12 @@ jobs:
             $packageVersionSuffix = "$packageVersionFromJson.$env:GITHUB_RUN_ID"
             echo "This is not the default branch, so a package version suffix: [$packageVersionSuffix] will be used."
           }
-
-          echo "packageVersionSuffix=$packageVersionSuffix" >> $env:GITHUB_OUTPUT
+          "package-version-suffix=$packageVersionSuffix" >> $env:GITHUB_OUTPUT
       - run: env
       - id: "package-vsix"
         name : "Package VSIX"
         run: |
-          $packageVersionSuffix = (Get-Content $env:GITHUB_OUTPUT | ConvertFrom-StringData)."packageVersionSuffix"
+          $packageVersionSuffix = ${{steps.get-suffix.outputs.package-version-suffix}}
           echo "packageVersionSuffix=$packageVersionSuffix"
           vsce package
 
