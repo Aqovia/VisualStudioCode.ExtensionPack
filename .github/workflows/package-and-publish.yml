@@ -61,10 +61,9 @@ jobs:
         name : "Publish VSIX"
         shell: bash
         run: |
-          cd build
           pwd
           ls
           echo "packageVersionSuffix: ${{steps.get-suffix.outputs.package-version-suffix}}"
-          vsce publish -p ${{secrets.MARKETPLACE_PAT}} --packagePath aqovia-vscode-extension-pack-${{steps.get-suffix.outputs.package-version-suffix}}.vsix
+          vsce publish -p ${{secrets.MARKETPLACE_PAT}} --packagePath "build/aqovia-vscode-extension-pack-${{steps.get-suffix.outputs.package-version-suffix}}.vsix"
 
 
