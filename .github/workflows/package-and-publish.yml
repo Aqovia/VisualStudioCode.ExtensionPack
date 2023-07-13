@@ -43,10 +43,12 @@ jobs:
       - id: "package-vsix"
         name : "Package VSIX"
         run: |
-          $packageVersionSuffix = ${{steps.get-suffix.outputs.package-version-suffix}}
-          echo "packageVersionSuffix: $packageVersionSuffix"
           echo "packageVersionSuffix: ${{steps.get-suffix.outputs.package-version-suffix}}"
-          echo "packageVersionSuffix: [${{steps.get-suffix.outputs.package-version-suffix}}]"
           vsce package
+      - id: "publish-vsix"
+        name : "Publish VSIX"
+        run: |
+          echo "packageVersionSuffix: ${{steps.get-suffix.outputs.package-version-suffix}}"
+          vsce publish -p ${{secrets.MARKETPLACE_PAT}} --packagePath aqovia-vscode-extension-pack-${{steps.get-suffix.outputs.package-version-suffix}}.vsix
 
 
