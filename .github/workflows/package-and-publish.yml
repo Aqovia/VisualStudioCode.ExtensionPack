@@ -40,5 +40,12 @@ jobs:
           }
 
           echo "package-version-suffix=$packageVersionSuffix" >> $env:GITHUB_OUTPUT
-      
+      - id: "package-vsix"
+        name : "Package VSIX"
+        run: |
+          $packageVersionSuffix = (Get-Content $env:GITHUB_OUTPUT | ConvertFrom-StringData)."package-version-suffix"
+          echo "packageVersionSuffix=$packageVersionSuffix"
+
+          vsce package --yarn --packagePath aqovia-vscode-extension-pack-$packageVersionSuffix.vsix
+                
 
