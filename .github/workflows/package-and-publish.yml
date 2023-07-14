@@ -18,7 +18,7 @@ jobs:
         shell: bash
       - run: vsce -V
         shell: bash
-      - run: npm version patch
+      - run: npm --no-git-tag-version version patch
         shell: bash
       - id: get-suffix
         name: Get package version suffix
