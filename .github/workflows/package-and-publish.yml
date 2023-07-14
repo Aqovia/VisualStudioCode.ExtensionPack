@@ -48,7 +48,6 @@ jobs:
         run: |
           pwd
           ls
-          npm --no-git-tag-version version ${{steps.get-suffix.outputs.package-version-suffix}}
           echo "packageVersionSuffix: ${{steps.get-suffix.outputs.package-version-suffix}}"
           vsce ls
           mkdir -p build && vsce package --out build/
@@ -65,6 +64,6 @@ jobs:
           pwd
           ls
           echo "packageVersionSuffix: ${{steps.get-suffix.outputs.package-version-suffix}}"
-          vsce publish --yarn -p ${{secrets.MARKETPLACE_PAT}} --packagePath "build/aqovia-vscode-extension-pack-${{steps.get-suffix.outputs.package-version-suffix}}.vsix"
+          vsce publish -p ${{secrets.MARKETPLACE_PAT}} --packagePath "build/aqovia-vscode-extension-pack-${{steps.get-suffix.outputs.package-version-suffix}}.vsix"
 
 
