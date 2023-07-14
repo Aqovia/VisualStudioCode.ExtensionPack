@@ -48,7 +48,6 @@ jobs:
         run: |
           pwd
           ls
-          npm --no-git-tag-version -allow-same-version version ${{steps.get-suffix.outputs.package-version-suffix}}
           echo "packageVersionSuffix: ${{steps.get-suffix.outputs.package-version-suffix}}"
           vsce ls
           mkdir -p build && vsce package --out build/
