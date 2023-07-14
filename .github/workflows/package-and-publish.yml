@@ -31,14 +31,14 @@ jobs:
           }
 
           #Get version from package.json
-          $packageVersionFromJson = (Get-Content package.json | ConvertFrom-Json).version
+          #$packageVersionFromJson = (Get-Content package.json | ConvertFrom-Json).version
 
           if ($branchName -eq "master" -or $branchName -eq "main") {
-            $packageVersionSuffix = "$packageVersionFromJson"
+            $packageVersionSuffix = npm --no-git-tag-version version minor
             echo "This is the default branch, so the package version will be : [$packageVersionSuffix]"
           } else {
             #$packageVersionSuffix = "$packageVersionFromJson.$env:GITHUB_RUN_ID"
-            $packageVersionSuffix = "$packageVersionFromJson"
+            $packageVersionSuffix = npm --no-git-tag-version version patch
             echo "This is not the default branch, so a package version suffix: [$packageVersionSuffix] will be used."
           }
           "package-version-suffix=$packageVersionSuffix" >> $env:GITHUB_OUTPUT
