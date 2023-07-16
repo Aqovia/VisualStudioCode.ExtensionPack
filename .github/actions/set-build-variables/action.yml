@@ -1,12 +1,12 @@
 name: 'Set Build Variables'
 description: 'Extracts and sets build variables'
-#outputs:
-#  last-tagged-version:
-#    description: "The last version produced by the pipeline"
-#    value: ${{ steps.get-last-tagged-version.outputs.last-tagged-version }}
-#  branch-name:
-#    description: "The branch name of the build run"
-#    value: ${{ steps.get-branch-name.outputs.branch-name }}
+outputs:
+  last-tagged-version:
+    description: "The last version produced by the pipeline"
+    value: ${{ steps.get-last-tagged-version.outputs.last-tagged-version }}
+  branch-name:
+    description: "The branch name of the build run"
+    value: ${{ steps.get-branch-name.outputs.branch-name }}
 runs:
   using: "composite"
   steps:
