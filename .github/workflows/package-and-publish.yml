@@ -30,12 +30,12 @@ jobs:
         uses: ./.github/actions/set-build-variables
       - name: Prepare Release
         id: prepare-release
-        if: success() && steps.pr.outputs.number
+        if: success() && steps.build-vars.outputs.last-tagged-version
         uses: ./.github/actions/prepare-release
         with:
           last-tagged-version: ${{ steps.build-vars.outputs.last-tagged-version }}
-          pr-title: ${{ steps.pr.outputs.pr_title }}
-          pr-body: ${{ steps.pr.outputs.pr_body }}
+          pr-title: "some title"
+          pr-body: "some body"
       - name: Create a GitHub Release
         id: create_release
         if: success() && steps.prepare-release.outputs.tag-name 
