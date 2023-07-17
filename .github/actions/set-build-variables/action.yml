@@ -12,6 +12,8 @@ runs:
   steps:
     - id: get-last-tagged-version 
       run: |
+        GIT_TAGS_TEST=`git tag -l`
+        echo "GIT_TAGS_TEST=$GIT_TAGS_TEST"
         ## get the last tagged version from the tag history of the current branch - if none is found default to version '0.0.0'
         LAST_TAGGED_VERSION=`git tag --sort=-committerdate 'v*' --merged | head -n 1 | sed -Ee 's/v//g'` && [ -z $LAST_TAGGED_VERSION ] && LAST_TAGGED_VERSION=0.0.0
         #echo "::set-output name=last-tagged-version::$LAST_TAGGED_VERSION"
