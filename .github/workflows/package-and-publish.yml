@@ -27,6 +27,8 @@ jobs:
           vsce -V
           git config user.name "$GITHUB_ACTOR"
           git config user.email "${GITHUB_ACTOR}@bots.github.com"
+          GIT_TAGS_TEST=`git tag -l`
+          echo "GIT_TAGS_TEST=$GIT_TAGS_TEST"
         shell: bash
       - name: Extract Build Variables
         id: build-vars
