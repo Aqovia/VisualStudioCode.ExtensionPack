@@ -23,7 +23,10 @@ jobs:
           node-version: '16'
       - run: npm install -g @vscode/vsce
         shell: bash
-      - run: vsce -V
+      - run: |
+          vsce -V
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "${GITHUB_ACTOR}@bots.github.com"
         shell: bash
       - name: Extract Build Variables
         id: build-vars
@@ -68,7 +71,7 @@ jobs:
         run: |
           pwd
           ls
-          echo "packageVersionSuffix: ${{steps.get-suffix.outputs.package-version-suffix}}"
-          vsce publish -p ${{secrets.VS_MARKETPLACE_PAT}} --packagePath "build/aqovia-vscode-extension-pack-${{steps.get-suffix.outputs.package-version-suffix}}.vsix"
+          echo "tag-name: ${{ steps.prepare-release.outputs.tag-name }}"
+          vsce publish -p ${{secrets.VS_MARKETPLACE_PAT}} --packagePath "build/aqovia-vscode-extension-pack-${{steps.prepare-release.outputs.tag-name}}.vsix"
 
 
