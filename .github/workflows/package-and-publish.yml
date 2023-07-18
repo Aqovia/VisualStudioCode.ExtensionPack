@@ -43,16 +43,6 @@ jobs:
           last-tagged-version: ${{ steps.build-vars.outputs.last-tagged-version }}
           pr-title: "some title"
           pr-body: "some body"
-      - name: Create a GitHub Release
-        id: create_release
-        if: success() && steps.prepare-release.outputs.tag-name 
-        uses: actions/create-release@v1
-        with:
-          tag_name: ${{ steps.prepare-release.outputs.tag-name }}
-          release_name: ${{ steps.prepare-release.outputs.new-version }}
-          body_path: /tmp/note.md
-          prerelease: false
-
       - id: "package-vsix"
         name : "Package VSIX"
         shell: bash
