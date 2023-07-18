@@ -1,9 +1,6 @@
 name: Package and Publish
 run-name : ${{ github.actor }} is running Package and Publish
-on:
-  push:
-    tags:
-      - '*'
+on: [push, pull_request]
 env:
   
   # Github auth token
