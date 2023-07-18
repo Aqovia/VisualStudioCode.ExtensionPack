@@ -45,7 +45,7 @@ jobs:
         with:
           last-tagged-version: ${{ steps.build-vars.outputs.last-tagged-version }}
           pr-title: "some title"
-          pr-body: "some body" 
+          pr-body: "some body"
       - id: "package-vsix"
         name : "Package VSIX"
         shell: bash
