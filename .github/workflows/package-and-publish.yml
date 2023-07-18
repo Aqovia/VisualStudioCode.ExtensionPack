@@ -76,6 +76,7 @@ jobs:
           pwd
           ls
           echo "tag-name: ${{ steps.prepare-release.outputs.tag-name }}"
-          vsce publish -p ${{secrets.VS_MARKETPLACE_PAT}} --packagePath "build/aqovia-vscode-extension-pack-${{steps.prepare-release.outputs.tag-name}}.vsix"
+          echo "new-version: ${{ steps.prepare-release.outputs.new-version }}"
+          vsce publish -p ${{secrets.VS_MARKETPLACE_PAT}} --packagePath "build/aqovia-vscode-extension-pack-${{steps.prepare-release.outputs.new-version}}.vsix"
 
 

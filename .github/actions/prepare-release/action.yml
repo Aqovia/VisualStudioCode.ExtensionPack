@@ -44,11 +44,12 @@ runs:
         echo "${{ inputs.pr-body }}" | sed -Ee 's/bump:\s*(major|minor|patch)//g' >> /tmp/note.md
 
         ## Set the new version in the package.json
-        npm version $NEW_VERSION --no-git-tag-version
+        npm --no-git-tag-version version $NEW_VERSION
         ## Add the package.json to the commit
-        git add package.json
+        ##git add package.json
         ## Then commit the version change
-        git commit -am "Bump version to $NEW_VERSION"
+        ##git commit -am "Bump version to $NEW_VERSION"
+
 
         ## Tag the release and push tag to remote
         TAG_NAME=v$NEW_VERSION && git tag $TAG_NAME && git push -f origin $TAG_NAME
