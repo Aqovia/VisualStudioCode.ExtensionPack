@@ -46,9 +46,9 @@ runs:
         ## Set the new version in the package.json
         npm --no-git-tag-version version $NEW_VERSION
         ## Add the package.json to the commit
-        ##git add package.json
+        git add package.json
         ## Then commit the version change
-        ##git commit -am "Bump version to $NEW_VERSION"
+        git commit -am "Bump version to $NEW_VERSION"
 
 
         ## Tag the release and push tag to remote
