@@ -38,7 +38,7 @@ jobs:
       - name: Update README.md
         run: |
           # Replace the content between the markers in README.md with extensionPack.json
-          sed -i '/<!-- EXTENSION_PACK_START -->/,/<!-- EXTENSION_PACK_END -->/ {
+          sed -i '\@<!-- EXTENSION_PACK_START -->@,\@<!-- EXTENSION_PACK_END -->@ {
             /<!-- EXTENSION_PACK_START -->/ {
               i\
               '"$(cat extensionPack.json)"'
