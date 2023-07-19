@@ -28,7 +28,7 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "${GITHUB_ACTOR}@bots.github.com"
           GIT_STATUS=`git status`
-          git fetch --tags
+          ##git fetch --tags
           ##echo $?
           GIT_TAGS_TEST=`git tag --sort=taggerdate`
           LAST_TAGGED_VERSION=`git tag --sort=taggerdate | tail -1`
