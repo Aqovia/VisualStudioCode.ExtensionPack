@@ -2,7 +2,7 @@
   "name": "aqovia-vscode-extension-pack",
   "displayName": "Aqovia VSCode ExtensionPack",
   "description": "Aqovia Visual Studio Code Extension Pack",
-  "version": "0.0.17-DO-813-vs-code-extension-pack.20230719104958.0",
+  "version": "0.0.17-DO-813-vs-code-extension-pack.20230719105204.0",
   "publisher": "Aqovia",
   "engines": {
     "vscode": "^1.80.0"
