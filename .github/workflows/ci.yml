@@ -28,11 +28,27 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Extract extensionPack from package.json
+        run: |
+          # Get the "extensionPack" section from package.json
+          EXTENSION_PACK=$(node -p "require('./package.json').extensionPack")
+
+          # Escape any slashes in the "extensionPack" JSON to prevent issues with sed
+          EXTENSION_PACK=$(echo "$EXTENSION_PACK" | sed 's/\//\\\//g')
+
+          # Store the "extensionPack" in a temporary file for later use
+          echo "$EXTENSION_PACK" > extensionPack.json
+
+      - name: Update README.md
+        run: |
+          # Replace the placeholder in README.md with the "extensionPack" content
+          sed -i '/<!-- EXTENSION_PACK_START -->/,/<!-- EXTENSION_PACK_END -->/c\\<!-- EXTENSION_PACK_START -->\n'"$(cat extensionPack.json)"'\n<!-- EXTENSION_PACK_END -->' README.md
+
       - name: Check for uncommitted changes
         run: |
           git status
           git diff-index --quiet HEAD || git commit -am "chore: Auto-commit before CI"
-          
+
       #- name: Run tests
       #  run: npm test
 
