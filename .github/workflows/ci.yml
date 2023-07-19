@@ -36,7 +36,17 @@ jobs:
           cat extensionPack.json
 
       - name: Update README.md
-        run: npx readme-action update -i extensionPack.json -o README.md -s "<!-- EXTENSION_PACK_START -->" -e "<!-- EXTENSION_PACK_END -->"
+        run: |
+          # Replace the content between the markers in README.md with extensionPack.json
+          sed -i '/<!-- EXTENSION_PACK_START -->/,/<!-- EXTENSION_PACK_END -->/ {
+            /<!-- EXTENSION_PACK_START -->/ {
+              i\
+              '"$(cat extensionPack.json)"'
+            }
+            /<!-- EXTENSION_PACK_END -->/ {
+              d
+            }
+          }' README.md
       
       - name: Check for uncommitted changes
         run: |
