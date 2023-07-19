@@ -32,6 +32,7 @@ jobs:
         run: npm test
 
       - name: Bump version and create Git tag
+        id: version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -58,8 +59,8 @@ jobs:
 
           echo "CURRENT_VERSION=$CURRENT_VERSION"
           echo "NEW_VERSION=$NEW_VERSION"
-          echo "current-version=somecurrentversion" >> $env:GITHUB_ENV
-          echo "new-version=somenewversion" >> $env:GITHUB_ENV
+          echo "current-version=somecurrentversion" >> $GITHUB_OUTPUT
+          echo "new-version=somenewversion" >> $GITHUB_OUTPUT
 
       - name: Install vsce CLI
         run: npm install -g @vscode/vsce
@@ -71,8 +72,8 @@ jobs:
         env:
             PERSONAL_ACCESS_TOKEN: ${{ secrets.VS_MARKETPLACE_PAT }}
         run: |
-            echo "CURRENT_VERSION=${{ env.current-version }}"
-            echo "NEW_VERSION=${{ env.new-version }}"
+            echo "CURRENT_VERSION=${{ steps.version.outputs.current-version }}"
+            echo "NEW_VERSION=${{ steps.version.outputs.new-version }}"
 
             # Extract the major and minor version numbers before and after the version bump
             CURRENT_MAJOR=$(echo ${{ env.current-version }} | cut -d. -f1)
