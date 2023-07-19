@@ -56,6 +56,9 @@ jobs:
           # Push the new tag to GitHub
           git push --follow-tags origin $BRANCH
 
+          echo "CURRENT_VERSION=$CURRENT_VERSION"
+          echo "NEW_VERSION=$NEW_VERSION"
+
       - name: Install vsce CLI
         run: npm install -g @vscode/vsce
 
@@ -66,6 +69,9 @@ jobs:
         env:
             PERSONAL_ACCESS_TOKEN: ${{ secrets.VS_MARKETPLACE_PAT }}
         run: |
+            echo "CURRENT_VERSION=$CURRENT_VERSION"
+            echo "NEW_VERSION=$NEW_VERSION"
+
             # Extract the major and minor version numbers before and after the version bump
             CURRENT_MAJOR=$(echo $CURRENT_VERSION | cut -d. -f1)
             CURRENT_MINOR=$(echo $CURRENT_VERSION | cut -d. -f2)
