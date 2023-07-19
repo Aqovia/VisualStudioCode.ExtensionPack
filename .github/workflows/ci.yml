@@ -63,9 +63,11 @@ jobs:
         run: |
             # Determine if the version is a pre-release or release version based on the suffix
             if [[ "$(npm version)" == *-* ]]; then
+                echo "Publishing pre-release version"
                 # For pre-release versions, publish in pre-release mode
                 vsce publish --pre-release -p $PERSONAL_ACCESS_TOKEN
             else
+                echo "Publishing release version"
                 # For release versions, publish normally
                 vsce publish -p $PERSONAL_ACCESS_TOKEN
             fi
