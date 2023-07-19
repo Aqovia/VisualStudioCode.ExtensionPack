@@ -37,15 +37,17 @@ jobs:
 
       - name: Update README.md
         run: |
-          # Print the extensionPack content directly into the sed command
-          sed -i "\@<!-- EXTENSION_PACK_START -->@,\@<!-- EXTENSION_PACK_END -->@ {
-            /<!-- EXTENSION_PACK_START -->/ {
-              r extensionPack.json
+          # Replace the content between the markers in README.md with extensionPack content
+          awk -v content="$(cat extensionPack.json)" '
+            /<!-- EXTENSION_PACK_START -->/, /<!-- EXTENSION_PACK_END -->/ {
+              if (/<!-- EXTENSION_PACK_START -->/) {
+                print "<!-- EXTENSION_PACK_START -->"
+                print content
+                print "<!-- EXTENSION_PACK_END -->"
+              }
             }
-            /<!-- EXTENSION_PACK_END -->/ {
-             d
-            }
-          }" README.md
+            !(/<!-- EXTENSION_PACK_START -->/, /<!-- EXTENSION_PACK_END -->/) { print }
+          ' README.md > README.md.new && mv README.md.new README.md
       
       - name: Check for uncommitted changes
         run: |
