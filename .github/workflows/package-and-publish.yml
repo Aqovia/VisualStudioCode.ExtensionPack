@@ -30,7 +30,7 @@ jobs:
           GIT_STATUS=`git status`
           git fetch --tags
           ##echo $?
-          GIT_TAGS_TEST=`git tag -l`
+          GIT_TAGS_TEST=`git tag --sort=taggerdate`
           LAST_TAGGED_VERSION=`git tag --sort=taggerdate | tail -1`
           echo "LAST_TAGGED_VERSION=$LAST_TAGGED_VERSION"
           echo "GIT_STATUS=$GIT_STATUS"
