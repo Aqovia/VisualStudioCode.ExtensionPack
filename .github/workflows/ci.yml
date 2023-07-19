@@ -33,7 +33,7 @@ jobs:
           # Get the "extensionPack" section from package.json and save it in a file
           node -p "JSON.stringify(require('./package.json').extensionPack, null, 2)" > extensionPack.json
           # Output the contents of extensionPack.json to the build log
-          cat extensionPack.json
+          #cat extensionPack.json
 
       - name: Update README.md
         run: |
