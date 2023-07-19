@@ -40,7 +40,7 @@ jobs:
           BRANCH=$(git branch --show-current)
 
           # Get the current version number
-          CURRENT_VERSION=$(npm version --json | jq -r '.version')
+          CURRENT_VERSION=$(jq -r '.version' package.json)
 
           # Check if it's the master branch or not
           if [ "$BRANCH" == "master" ]; then
@@ -52,7 +52,7 @@ jobs:
           fi
 
           # Get the updated version number
-          NEW_VERSION=$(npm version)
+          NEW_VERSION=$(jq -r '.version' package.json)
 
           # Push the new tag to GitHub
           git push --follow-tags origin $BRANCH
