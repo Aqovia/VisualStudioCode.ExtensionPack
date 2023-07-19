@@ -20,7 +20,7 @@ runs:
         LAST_TAGGED_VERSION2=$(git tag --sort=taggerdate | tail -1)
         echo "LAST_TAGGED_VERSION2=$LAST_TAGGED_VERSION2"
         ## get the last tagged version from the tag history of the current branch - if none is found default to version '0.0.0'
-        LAST_TAGGED_VERSION=$(git tag --sort=-committerdate 'v*' --merged | head -n 1 | sed -Ee 's/v//g' && [ -z $LAST_TAGGED_VERSION ] && LAST_TAGGED_VERSION=0.0.0)
+        LAST_TAGGED_VERSION=$(git tag --sort=-committerdate 'v*' --merged | head -n 1 | sed -Ee 's/v//g') && [ -z $LAST_TAGGED_VERSION ] && LAST_TAGGED_VERSION=0.0.0
         echo "LAST_TAGGED_VERSION=$LAST_TAGGED_VERSION"
         echo "last-tagged-version=$LAST_TAGGED_VERSION" >> $GITHUB_OUTPUT
       shell: bash
