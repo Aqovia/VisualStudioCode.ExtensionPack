@@ -16,9 +16,9 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '16'
 
       - name: Set Git configuration
         run: |
@@ -76,19 +76,19 @@ jobs:
             echo "NEW_VERSION=${{ steps.version.outputs.new-version }}"
 
             # Extract the major and minor version numbers before and after the version bump
-            CURRENT_MAJOR=$(echo ${{ env.current-version }} | cut -d. -f1)
-            CURRENT_MINOR=$(echo ${{ env.current-version }} | cut -d. -f2)
+            CURRENT_MAJOR=$(echo ${{ steps.version.outputs.current-version }} | cut -d. -f1)
+            CURRENT_MINOR=$(echo ${{ steps.version.outputs.current-version }} | cut -d. -f2)
 
-            NEW_MAJOR=$(echo ${{ env.new-version }} | cut -d. -f1)
-            NEW_MINOR=$(echo ${{ env.new-version }} | cut -d. -f2)
+            NEW_MAJOR=$(echo ${{ steps.version.outputs.new-version }} | cut -d. -f1)
+            NEW_MINOR=$(echo ${{ steps.version.outputs.new-version }} | cut -d. -f2)
 
             # Compare the version numbers to determine if it's a pre-release or a full release
             if [ "$NEW_MAJOR" != "$CURRENT_MAJOR" ] || [ "$NEW_MINOR" != "$CURRENT_MINOR" ]; then
               # For full release versions (major or minor version changed), publish normally
-              echo "Publishing full release version - ${{ env.new-version }}"
+              echo "Publishing full release version - ${{ steps.version.outputs.new-version }}"
               vsce publish -p $PERSONAL_ACCESS_TOKEN
             else
               # For pre-release versions (only patch version changed), publish as pre-release
-              echo "Publishing pre-release version - ${{ env.new-version }}"
+              echo "Publishing pre-release version - ${{ steps.version.outputs.new-versionn }}"
               vsce publish --pre-release -p $PERSONAL_ACCESS_TOKEN
             fi
