@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Bump version and create Git tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Get the current branch name
+          BRANCH=$(git branch --show-current)
+
+          # Check if it's the master branch or not
+          if [ "$BRANCH" == "master" ]; then
+            # For the master branch, bump a minor version
+            npm version minor
+          else
+            # For non-master branches, create a pre-release version
+            # Pre-release versions will have the format vX.X.X-branchName.YYYYMMDDHHMMSS
+            npm version prerelease --preid=$BRANCH.$(date +'%Y%m%d%H%M%S')
+          fi
+
+          # Push the new tag to GitHub
+          git push --follow-tags origin $BRANCH
+      - name: Build extension and create VSIX package
+        run: vsce package
+  
+      - name: Install vsce CLI
+        run: npm install -g vsce
+  
+      - name: Publish to Visual Studio Marketplace
+        env:
+            PERSONAL_ACCESS_TOKEN: ${{ secrets.VS_MARKETPLACE_PAT }}
+        run: |
+            vsce publish -p $PERSONAL_ACCESS_TOKEN
