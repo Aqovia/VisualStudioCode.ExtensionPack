@@ -30,8 +30,8 @@ jobs:
 
       - name: Extract extensionPack from package.json
         run: |
-          # Get the "extensionPack" section from package.json
-          EXTENSION_PACK=$(node -p "require('./package.json').extensionPack")
+          # Get the "extensionPack" section from package.json and remove newline characters
+          EXTENSION_PACK=$(node -p "JSON.stringify(require('./package.json').extensionPack)" | tr -d '\n')
 
           # Escape any slashes in the "extensionPack" JSON to prevent issues with sed
           EXTENSION_PACK=$(echo "$EXTENSION_PACK" | sed 's/\//\\\//g')
@@ -42,7 +42,7 @@ jobs:
       - name: Update README.md
         run: |
           # Replace the placeholder in README.md with the "extensionPack" content
-          sed -i '/<!-- EXTENSION_PACK_START -->/,/<!-- EXTENSION_PACK_END -->/c\\<!-- EXTENSION_PACK_START -->\n'"$(cat extensionPack.json)"'\n<!-- EXTENSION_PACK_END -->' README.md
+          sed -i 's@<!-- EXTENSION_PACK_START -->.*<!-- EXTENSION_PACK_END -->@<!-- EXTENSION_PACK_START -->\n'"$(cat extensionPack.json)"'\n<!-- EXTENSION_PACK_END -->@' README.md
 
       - name: Check for uncommitted changes
         run: |
