@@ -52,8 +52,8 @@ jobs:
           git push --follow-tags origin $BRANCH
 
       - name: Install vsce CLI
-        run: npm install -g vsce
-        
+        run: npm install -g @vscode/vsce
+
       - name: Build extension and create VSIX package
         run: vsce package
   
@@ -61,4 +61,11 @@ jobs:
         env:
             PERSONAL_ACCESS_TOKEN: ${{ secrets.VS_MARKETPLACE_PAT }}
         run: |
-            vsce publish -p $PERSONAL_ACCESS_TOKEN
+            # Determine if the version is a pre-release or release version based on the suffix
+            if [[ "$(npm version)" == *-* ]]; then
+                # For pre-release versions, publish in pre-release mode
+                vsce publish --pre-release -p $PERSONAL_ACCESS_TOKEN
+            else
+                # For release versions, publish normally
+                vsce publish -p $PERSONAL_ACCESS_TOKEN
+            fi
