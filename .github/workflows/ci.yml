@@ -52,7 +52,7 @@ jobs:
 
           # Get the updated version number
           NEW_VERSION=$(npm version)
-          
+
           # Push the new tag to GitHub
           git push --follow-tags origin $BRANCH
 
@@ -76,8 +76,10 @@ jobs:
             # Compare the version numbers to determine if it's a pre-release or a full release
             if [ "$NEW_MAJOR" != "$CURRENT_MAJOR" ] || [ "$NEW_MINOR" != "$CURRENT_MINOR" ]; then
               # For full release versions (major or minor version changed), publish normally
+              echo "Publishing full release version - $NEW_VERSION"
               vsce publish -p $PERSONAL_ACCESS_TOKEN
             else
               # For pre-release versions (only patch version changed), publish as pre-release
+              echo "Publishing pre-release version - $NEW_VERSION"
               vsce publish --pre-release -p $PERSONAL_ACCESS_TOKEN
             fi
