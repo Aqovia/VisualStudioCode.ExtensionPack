@@ -38,16 +38,21 @@ jobs:
           # Get the current branch name
           BRANCH=$(git branch --show-current)
 
+          # Get the current version number
+          CURRENT_VERSION=$(npm version)
+
           # Check if it's the master branch or not
           if [ "$BRANCH" == "master" ]; then
             # For the master branch, bump a minor version
             npm version minor
           else
             # For non-master branches, create a pre-release version
-            # Pre-release versions will have the format vX.X.X-branchName.YYYYMMDDHHMMSS
-            npm version prerelease --preid=$BRANCH.$(date +'%Y%m%d%H%M%S')
+            npm version patch
           fi
 
+          # Get the updated version number
+          NEW_VERSION=$(npm version)
+          
           # Push the new tag to GitHub
           git push --follow-tags origin $BRANCH
 
@@ -61,13 +66,18 @@ jobs:
         env:
             PERSONAL_ACCESS_TOKEN: ${{ secrets.VS_MARKETPLACE_PAT }}
         run: |
-            # Determine if the version is a pre-release or release version based on the suffix
-            if [[ "$(npm version)" == *-* ]]; then
-                echo "Publishing pre-release version"
-                # For pre-release versions, publish in pre-release mode
-                vsce publish --pre-release -p $PERSONAL_ACCESS_TOKEN
+            # Extract the major and minor version numbers before and after the version bump
+            CURRENT_MAJOR=$(echo $CURRENT_VERSION | cut -d. -f1)
+            CURRENT_MINOR=$(echo $CURRENT_VERSION | cut -d. -f2)
+
+            NEW_MAJOR=$(echo $NEW_VERSION | cut -d. -f1)
+            NEW_MINOR=$(echo $NEW_VERSION | cut -d. -f2)
+
+            # Compare the version numbers to determine if it's a pre-release or a full release
+            if [ "$NEW_MAJOR" != "$CURRENT_MAJOR" ] || [ "$NEW_MINOR" != "$CURRENT_MINOR" ]; then
+              # For full release versions (major or minor version changed), publish normally
+              vsce publish -p $PERSONAL_ACCESS_TOKEN
             else
-                echo "Publishing release version"
-                # For release versions, publish normally
-                vsce publish -p $PERSONAL_ACCESS_TOKEN
+              # For pre-release versions (only patch version changed), publish as pre-release
+              vsce publish --pre-release -p $PERSONAL_ACCESS_TOKEN
             fi
