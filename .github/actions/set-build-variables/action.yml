@@ -16,8 +16,8 @@ runs:
         echo "GIT_STATUS=$GIT_STATUS"
         echo "trying git fetch --tags..."
         git fetch --tags
-        echo "listing all tags by creatordate..."
-        git tag --sort=creatordate
+        echo "listing all tags by taggerdate..."
+        git tag --sort=taggerdate
         ## trying another way to get the last tagged version
         LAST_TAGGED_VERSION2=$(git tag --sort=taggerdate | tail -1)
         echo "LAST_TAGGED_VERSION2=$LAST_TAGGED_VERSION2"
