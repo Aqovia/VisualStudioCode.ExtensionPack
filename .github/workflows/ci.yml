@@ -58,8 +58,8 @@ jobs:
 
           echo "CURRENT_VERSION=$CURRENT_VERSION"
           echo "NEW_VERSION=$NEW_VERSION"
-          "current-version=$CURRENT_VERSION" >> $GITHUB_ENV
-          "new-version=$NEW_VERSION" >> $GITHUB_ENV
+          "current-version=$CURRENT_VERSION" >> $env:GITHUB_ENV
+          "new-version=$NEW_VERSION" >> $env:GITHUB_ENV
 
       - name: Install vsce CLI
         run: npm install -g @vscode/vsce
