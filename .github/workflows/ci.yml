@@ -32,7 +32,6 @@ jobs:
         run: |
           # Get the "extensionPack" section from package.json and save it in a file
           node -p "JSON.stringify(require('./package.json').extensionPack, null, 2)" > extensionPack.json
-          #echo "${JSON.stringify(require('./package.json').extensionPack, null, 2)}" > extensionPack.json
           # Output the contents of extensionPack.json to the build log
           cat extensionPack.json
 
@@ -52,9 +51,6 @@ jobs:
         run: |
           git status
           git diff-index --quiet HEAD || git commit -am "chore: Auto-commit before CI"
-
-      #- name: Run tests
-      #  run: npm test
 
       - name: Bump version and create Git tag
         id: version
