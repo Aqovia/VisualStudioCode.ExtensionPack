@@ -50,11 +50,12 @@ jobs:
 
           # Push the new tag to GitHub
           git push --follow-tags origin $BRANCH
-      - name: Build extension and create VSIX package
-        run: vsce package
-  
+
       - name: Install vsce CLI
         run: npm install -g vsce
+        
+      - name: Build extension and create VSIX package
+        run: vsce package
   
       - name: Publish to Visual Studio Marketplace
         env:
