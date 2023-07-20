@@ -1,4 +1,4 @@
-name: CI
+name: Package and Publish to Visual Studio Marketplace
 
 on:
   push:
@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
