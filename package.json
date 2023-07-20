@@ -4,7 +4,7 @@
   "description": "Aqovia Visual Studio Code Extension Pack",
   "version": "0.0.37",
   "publisher": "Aqovia",
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE.txt",
   "engines": {
     "vscode": "^1.80.0"
   },
