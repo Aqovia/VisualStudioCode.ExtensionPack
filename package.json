@@ -2,7 +2,7 @@
   "name": "aqovia-vscode-extension-pack",
   "displayName": "Aqovia VSCode ExtensionPack",
   "description": "Aqovia Visual Studio Code Extension Pack",
-  "version": "0.0.35",
+  "version": "0.0.36",
   "publisher": "Aqovia",
   "licence": "SEE LICENCE IN LICENCE.txt",
   "engines": {
