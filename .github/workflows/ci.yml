@@ -66,7 +66,7 @@ jobs:
           CURRENT_VERSION=$(jq -r '.version' package.json)
 
           # Check if it's the master branch or not
-          if [ "$BRANCH" == "master" ]; then
+          if [ "$BRANCH" == "master" ] || [ "$BRANCH" == "main" ]; then
             # For the master branch, bump a minor version
             npm version minor
           else
