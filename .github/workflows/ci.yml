@@ -55,35 +55,11 @@ jobs:
           git diff-index --quiet HEAD || git commit -am "chore: Auto-commit before CI"
 
       - name: Bump version and create Git tag
+        uses: Aqovia/npm-version-increment@v1.0.1
         id: version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Get the current branch name
-          BRANCH=$(git branch --show-current)
-
-          # Get the current version number
-          CURRENT_VERSION=$(jq -r '.version' package.json)
-
-          # Check if it's the master branch or not
-          if [ "$BRANCH" == "master" ] || [ "$BRANCH" == "main" ]; then
-            # For the master branch, bump a minor version
-            npm version minor
-          else
-            # For non-master branches, create a pre-release version
-            npm version patch
-          fi
-
-          # Get the updated version number
-          NEW_VERSION=$(jq -r '.version' package.json)
-
-          # Push the new tag to GitHub
-          git push --follow-tags origin $BRANCH
-
-          echo "CURRENT_VERSION=$CURRENT_VERSION"
-          echo "NEW_VERSION=$NEW_VERSION"
-          echo "current-version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
-          echo "new-version=$NEW_VERSION" >> $GITHUB_OUTPUT
+        
 
       - name: Install vsce CLI
         run: npm install -g @vscode/vsce
