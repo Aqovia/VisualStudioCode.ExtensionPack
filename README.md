@@ -16,7 +16,6 @@ Current extensions list -
   "mrmlnc.vscode-less",
   "DavidAnson.vscode-markdownlint",
   "ms-mssql.mssql",
-  "ms-vscode.node-debug2",
   "leizongmin.node-module-intellisense",
   "christian-kohler.npm-intellisense",
   "polymer.polymer-ide",
