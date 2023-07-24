@@ -55,7 +55,7 @@ jobs:
           git diff-index --quiet HEAD || git commit -am "chore: Auto-commit before CI"
 
       - name: Bump version and create Git tag
-        uses: Aqovia/npm-version-increment@v1.0.2
+        uses: Aqovia/npm-version-increment@v1.0.3
         id: version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
