@@ -41,14 +41,16 @@ jobs:
             BEGIN {
               # Remove leading/trailing whitespaces and square brackets from the JSON array content
               gsub(/^[[:space:]]+|\]$/,"", content)
-              # Split the content by comma and store in the extensions array
-              split(content, extensions, ",[[:space:]]*")
+              # Remove the opening bracket and split the content by comma
+              gsub(/^\[|\s*\]$/, "", content)
+              split(content, extensions, "\",\"")
             }
       
             /<!-- EXTENSION_PACK_START -->/, /<!-- EXTENSION_PACK_END -->/ {
               if (/<!-- EXTENSION_PACK_START -->/) {
                 print "<!-- EXTENSION_PACK_START -->"
                 for (i in extensions) {
+                  gsub(/^"|"$/, "", extensions[i]) # Remove surrounding quotes from each extension
                   print "- " extensions[i]
                 }
                 print "<!-- EXTENSION_PACK_END -->"
