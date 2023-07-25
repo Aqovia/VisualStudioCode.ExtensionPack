@@ -38,10 +38,19 @@ jobs:
       - name: Update README.md
         run: |
           awk -v content="$(cat extensionPack.json)" '
+            BEGIN {
+              # Remove leading/trailing whitespaces and square brackets from the JSON array content
+              gsub(/^[[:space:]]+|\]$/,"", content)
+              # Split the content by comma and store in the extensions array
+              split(content, extensions, ",[[:space:]]*")
+            }
+      
             /<!-- EXTENSION_PACK_START -->/, /<!-- EXTENSION_PACK_END -->/ {
               if (/<!-- EXTENSION_PACK_START -->/) {
                 print "<!-- EXTENSION_PACK_START -->"
-                print content
+                for (i in extensions) {
+                  print "- " extensions[i]
+                }
                 print "<!-- EXTENSION_PACK_END -->"
               }
               next
