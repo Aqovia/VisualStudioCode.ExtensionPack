@@ -43,6 +43,7 @@ jobs:
               gsub(/^[[:space:]]+|\]$/,"", content)
               # Remove the opening bracket and split the content by comma
               gsub(/^\[|\s*\]$/, "", content)
+              # Split the content into extensions array
               split(content, extensions, "\",\"")
             }
       
